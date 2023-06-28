@@ -26,3 +26,6 @@ let int_attr obj attr =
 
 let bool_attr obj attr =
   Py.Bool.to_bool (Py.Module.get obj attr)
+
+let float_attr obj attr =
+  Py.Float.to_float (Py.Module.get obj attr)

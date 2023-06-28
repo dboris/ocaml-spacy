@@ -10,7 +10,7 @@ val pipe :
 val token_seq :
   [< `Doc of Pytypes.pyobject ] ->
   [> `Token of Pytypes.pyobject ] Seq.t
-(** [token_seq doc] returns a sequnce of spaCy tokens. *)
+(** [token_seq doc] returns a sequence of spaCy tokens. *)
 
 val string_attr : Pytypes.pyobject -> string -> string
 (** [string_attr py_object] returns the attribute of [py_object] (eg token)
@@ -23,3 +23,7 @@ val int_attr : Pytypes.pyobject -> string -> int
 val bool_attr : Pytypes.pyobject -> string -> bool
 (** [bool_attr py_object] returns the attribute of [py_object] (eg token)
     converted to OCaml bool. *)
+
+val float_attr : Pytypes.pyobject -> string -> float
+(** [float_attr py_object] returns the attribute of [py_object] (eg token)
+    converted to OCaml float. *)
