@@ -15,7 +15,11 @@ let () =
     ; "What a great example of the capabilities of this library!"
     ]
   |> pipe (Language.get_model "en")
-  |> Seq.iter (fun doc ->
+  |> Seq.iter @@ fun doc ->
     token_seq doc
     |> Seq.map pp_token
-    |> Seq.iter print_endline)
+    |> Seq.iter print_endline;
+    print_endline "Sentences:";
+    sentence_seq doc
+    |> Seq.map (fun (`Span sent) -> string_attr sent "text")
+    |> Seq.iter print_endline

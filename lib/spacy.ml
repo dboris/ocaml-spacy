@@ -11,12 +11,14 @@ let pipe (`Model model) str_seq =
     (pipe [| Py.Iter.of_seq_map Py.String.of_string str_seq |])
 
 let token_seq (`Doc doc) =
-  let iter =
-    Py.Module.get_function py_builtins "iter"
-  in
   Py.Iter.to_seq_map
     (fun tok -> `Token tok)
-    (iter [| doc |])
+    (py_iter [| doc |])
+
+let sentence_seq (`Doc doc) =
+  Py.Iter.to_seq_map
+    (fun sent -> `Span sent)
+    (py_iter [| Py.Module.get doc "sents" |])
 
 let string_attr obj attr =
   Py.String.to_string (Py.Module.get obj attr)

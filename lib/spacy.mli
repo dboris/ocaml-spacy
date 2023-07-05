@@ -12,6 +12,11 @@ val token_seq :
   [> `Token of Pytypes.pyobject ] Seq.t
 (** [token_seq doc] returns a sequence of spaCy tokens. *)
 
+val sentence_seq :
+  [< `Doc of Pytypes.pyobject ] ->
+  [> `Span of Pytypes.pyobject ] Seq.t
+(** [sentence_seq doc] returns a sequence of spaCy sentence spans. *)
+
 val string_attr : Pytypes.pyobject -> string -> string
 (** [string_attr py_object] returns the attribute of [py_object] (eg token)
     converted to OCaml string. *)
