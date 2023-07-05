@@ -2,6 +2,9 @@ open Base
 
 module Language = Language
 
+let iter_map f obj =
+  Py.Iter.to_seq_map f (py_iter [| obj |])
+
 let pipe (`Model model) str_seq =
   let pipe =
     Py.Module.get_function model "pipe"
@@ -11,14 +14,10 @@ let pipe (`Model model) str_seq =
     (pipe [| Py.Iter.of_seq_map Py.String.of_string str_seq |])
 
 let token_seq (`Doc doc) =
-  Py.Iter.to_seq_map
-    (fun tok -> `Token tok)
-    (py_iter [| doc |])
+  iter_map (fun tok -> `Token tok) doc
 
 let sentence_seq (`Doc doc) =
-  Py.Iter.to_seq_map
-    (fun sent -> `Span sent)
-    (py_iter [| Py.Module.get doc "sents" |])
+  iter_map (fun sent -> `Span sent) (Py.Module.get doc "sents")
 
 let string_attr obj attr =
   Py.String.to_string (Py.Module.get obj attr)
