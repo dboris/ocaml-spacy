@@ -8,7 +8,7 @@ val pipe :
     corresponding to the input string sequence. *)
 
 val token_seq :
-  [< `Doc of Pytypes.pyobject ] ->
+  [< `Doc of Pytypes.pyobject | `Span of Pytypes.pyobject ] ->
   [> `Token of Pytypes.pyobject ] Seq.t
 (** [token_seq doc] returns a sequence of spaCy tokens. *)
 

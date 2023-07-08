@@ -13,8 +13,11 @@ let pipe (`Model model) str_seq =
     (fun doc -> `Doc doc)
     (pipe [| Py.Iter.of_seq_map Py.String.of_string str_seq |])
 
-let token_seq (`Doc doc) =
-  iter_map (fun tok -> `Token tok) doc
+let token_seq doc_or_span =
+  (match doc_or_span with
+  | `Doc doc -> doc
+  | `Span span -> span)
+  |> iter_map (fun tok -> `Token tok)
 
 let sentence_seq (`Doc doc) =
   iter_map (fun sent -> `Span sent) (Py.Module.get doc "sents")
